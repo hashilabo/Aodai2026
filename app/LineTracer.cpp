@@ -1,5 +1,5 @@
 /******************************************************************************
- *  LineTracer.cpp (for SPIKE) 
+ *  LineTracer.cpp (for SPIKE)
  *  Created on: 2025/01/05
  *  Implementation of the Class LineTracer
  *  Author: Kazuhiro Kawachi
@@ -11,35 +11,38 @@
 
 // 定数宣言
 const float LineTracer::Kp = 0.83;
-const int 	LineTracer::bias = 0;
-  
+const int LineTracer::bias = 0;
+
 /**
  * コンストラクタ
  * @param lineMonitor     ライン判定
  * @param walker 走行
  */
-LineTracer::LineTracer(const LineMonitor* lineMonitor,
-                       Walker* walker)
+LineTracer::LineTracer(const LineMonitor *lineMonitor,
+                       Walker *walker)
     : mLineMonitor(lineMonitor),
       mWalker(walker),
-      mIsInitialized(false) {
+      mIsInitialized(false)
+{
 }
 
 /**
  * ライントレースする
  */
-void LineTracer::run() {
-    if (mIsInitialized == false) {
+void LineTracer::run()
+{
+    if (mIsInitialized == false)
+    {
         mWalker->init();
         mIsInitialized = true;
     }
 
-    int diffReflection = mLineMonitor-> calDiffReflection();
+    int diffReflection = mLineMonitor->calDiffReflection();
 
     // 走行体の操作量を計算する
-  	float turn = calcPropValue(diffReflection);
-  	mWalker->setCommand(turn);
-
+    // float turn = calcPropValue(diffReflection);
+    float turn = _EDGE * calcPropValue(diffReflection);
+    mWalker->setCommand(turn);
 
     // 走行を行う
     mWalker->run();
@@ -49,8 +52,9 @@ void LineTracer::run() {
  * 走行体の操作量を計算する
  * @param diffBrightness ラインから外れた度合い（ライン閾値との差）
  */
-float LineTracer::calcPropValue(int diffBrightness) {
+float LineTracer::calcPropValue(int diffBrightness)
+{
     float turn = LineTracer::Kp * diffBrightness + LineTracer::bias;
-	
+
     return turn;
 }
