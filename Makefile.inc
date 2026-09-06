@@ -6,7 +6,7 @@ APPL_CXXOBJS += \
 	LineTracer.o \
 	Scenario.o \
 	ScenarioTracer.o \
-	RandomWalker.o \
+	EntryWalker.o \
 	LineMonitor.o \
 	Starter.o \
 	SimpleTimer.o
@@ -28,3 +28,5 @@ INCLUDES += \
 	-I$(mkfile_path)../../../drivers/include/libcpp/spike \
 	-I$(mkfile_path)app \
 	-I$(mkfile_path)unit
+
+COPTS += -DMAKE_RIGHT
