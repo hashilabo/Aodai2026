@@ -16,3 +16,15 @@
     ```
     float turn = _EDGE * calcPropValue(diffReflection);
     ```
+3. RamdomWalker を EntryWalker へ変更する
+    * EntryWalker.h 変更箇所
+      * 冒頭コメント
+      * インクルードガード
+      * クラス宣言
+      * コンストラクタ名
+    
+    * EntryWalker.cpp 変更箇所
+      *  インクルードファイル名
+      *  定数名の一部
+      *  メソッド名の一部
+    
