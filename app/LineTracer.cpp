@@ -22,7 +22,8 @@ LineTracer::LineTracer(const LineMonitor *lineMonitor,
                        Walker *walker)
     : mLineMonitor(lineMonitor),
       mWalker(walker),
-      mIsInitialized(false)
+      mIsInitialized(false),
+      mPidController()
 {
 }
 
@@ -35,13 +36,14 @@ void LineTracer::run()
     {
         mWalker->init();
         mIsInitialized = true;
+        mPidController.reset();
     }
 
     int diffReflection = mLineMonitor->calDiffReflection();
 
     // 走行体の操作量を計算する
-    // float turn = calcPropValue(diffReflection);
-    float turn = _EDGE * calcPropValue(diffReflection);
+    // float turn = _EDGE * calcPropValue(diffReflection);
+    float turn = _EDGE * mPidController.calcValue(diffReflection);
     mWalker->setCommand(turn);
 
     // 走行を行う
