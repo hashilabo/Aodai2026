@@ -12,28 +12,29 @@
 
 #include "Motor.h"
 
-class Walker {
+class Walker
+{
 public:
-    static const int RIGHT_TURN = -30;  //左ターン時の制御値
-    static const int LEFT_TURN = 30;    //右ターン時の制御値
-  
-    Walker(spikeapi::Motor& leftWheel,
-                    spikeapi::Motor& rightWheel);
+  static const int RIGHT_TURN = -30; // 左ターン時の制御値
+  static const int LEFT_TURN = 30;   // 右ターン時の制御値
 
-    void init();
-    void run();
-    void setCommand(float turn);
+  Walker(spikeapi::Motor &leftWheel,
+         spikeapi::Motor &rightWheel);
+
+  void init();
+  void run();
+  void setCommand(float turn);
 
 private:
-    spikeapi::Motor& mLeftWheel;
-    spikeapi::Motor& mRightWheel;
-    int mTurn;
+  spikeapi::Motor &mLeftWheel;
+  spikeapi::Motor &mRightWheel;
+  int mTurn;
 
-  #ifndef MAKE_RASPIKE
-    const int8_t pwm = 30;
-  #else
-    const int8_t pwm = 40;
-  #endif
+#ifndef MAKE_RASPIKE
+  const int8_t pwm = 65;
+#else
+  const int8_t pwm = 40;
+#endif
 };
 
-#endif  // ETTR_UNIT_WALKER_H_
+#endif // ETTR_UNIT_WALKER_H_

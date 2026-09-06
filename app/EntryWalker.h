@@ -27,7 +27,8 @@ private:
         UNDEFINED,
         WAITING_FOR_START,
         LINE_TRACING,
-        SCENARIO_TRACING
+        SCENARIO_TRACING,
+        STOP
     };
 
     static const int MIN_TIME;
@@ -45,6 +46,7 @@ private:
     void execWaitingForStart();
     void execLineTracing();
     void execScenarioTracing();
+    void execStop();
 };
 
 #endif // ETTR_APP_ENTRYWALKER_H_

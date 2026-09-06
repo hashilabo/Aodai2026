@@ -6,10 +6,11 @@
 #include "Clock.h"
 
 #include "EntryWalker.h"
+#include "etroboc_ext.h"
 
 // 定数宣言
-const int EntryWalker::MIN_TIME = 5000 * 1000;  // 切り替え時間の最小値
-const int EntryWalker::MAX_TIME = 15000 * 1000; // 切り替え時間の最大値
+const int EntryWalker::MIN_TIME = 60000 * 1000;  // 切り替え時間の最小値
+const int EntryWalker::MAX_TIME = 120000 * 1000; // 切り替え時間の最大値
 
 /**
  * コンストラクタ
@@ -111,7 +112,7 @@ void EntryWalker::execLineTracing()
     {
         mSimpleTimer->stop();
 
-        mState = SCENARIO_TRACING;
+        mState = STOP;
 
         modeChangeAction();
     }
@@ -128,8 +129,13 @@ void EntryWalker::execScenarioTracing()
     {
         mSimpleTimer->stop();
 
-        mState = LINE_TRACING;
+        mState = STOP;
 
         modeChangeAction();
     }
+}
+
+void EntryWalker::execStop()
+{
+    ETRoboc_notifyCompletedToSimulator(); // 競技終了通知
 }
