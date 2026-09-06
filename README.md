@@ -306,3 +306,56 @@ bias=0
   * pid.txt の各パラメータを読み取り、実行時に表示するかどうか
   * PID制御を使ったライントレースをするかどうか
 
+## 状態遷移を変更する
+### app/EntryWalker.h 変更
+
+1. 状態```STOP```の追加　24行目
+```
+private:
+    enum State
+    {
+        UNDEFINED,
+        WAITING_FOR_START,
+        LINE_TRACING,
+        SCENARIO_TRACING,
+        STOP
+    };
+```
+2. 状態```STOP```のメソッドを追加 49行目付近
+```
+    void execStop();
+```
+### app/EntryWalker.cpp 変更
+1. ヘッダファイルの追加 14行目
+```
+#include "etroboc_ext.h"
+```
+2. run() 修正
+```
+void EntryWalker::run()
+{
+    switch (mState)
+    {
+    case UNDEFINED:
+        execUndefined();
+        break;
+    case WAITING_FOR_START:
+        execWaitingForStart();
+        break;
+    case LINE_TRACING:
+        execLineTracing();
+        break;
+    case SCENARIO_TRACING:
+        execScenarioTracing();
+        break;
+    case STOP:
+        execStop();
+        break;
+    default:
+        break;
+    }
+}
+```
+3. 
+
+
