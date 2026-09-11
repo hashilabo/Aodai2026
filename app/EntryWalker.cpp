@@ -141,10 +141,16 @@ void EntryWalker::execScenarioTracing()
     }
 }
 
+/**
+ * ガレージ走行中の処理
+ */
 void EntryWalker::execGarage(){
     //
 }
 
+/**
+ * 停止中の処理
+ */
 void EntryWalker::execStop()
 {
     ETRoboc_notifyCompletedToSimulator(); // 競技終了通知

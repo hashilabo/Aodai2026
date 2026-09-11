@@ -8,6 +8,8 @@
  *****************************************************************************/
 
 #include "LineTracer.h"
+#include <cstdio>
+#include <cstring>
 
 // 定数宣言
 const float LineTracer::Kp = 0.83;
@@ -18,14 +20,11 @@ const int LineTracer::bias = 0;
  * @param lineMonitor     ライン判定
  * @param walker 走行
  */
-LineTracer::LineTracer(const LineMonitor *lineMonitor,
-                       Walker *walker)
+LineTracer::LineTracer(const LineMonitor *lineMonitor, Walker *walker)
     : mLineMonitor(lineMonitor),
       mWalker(walker),
       mIsInitialized(false),
-      mPidController()
-{
-}
+      mPidController() {}
 
 /**
  * ライントレースする
@@ -45,7 +44,7 @@ void LineTracer::run()
     // float turn = _EDGE * calcPropValue(diffReflection);
     float turn = _EDGE * mPidController.calcValue(diffReflection);
     mWalker->setCommand(turn);
-
+    printf("%d ", _EDGE);
     // 走行を行う
     mWalker->run();
 }

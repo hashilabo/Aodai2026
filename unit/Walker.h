@@ -15,8 +15,8 @@
 class Walker
 {
 public:
-  static const int RIGHT_TURN = -30; // ¶ƒ^[ƒ“‚Ì§Œä’l
-  static const int LEFT_TURN = 30;   // ‰Eƒ^[ƒ“‚Ì§Œä’l
+  static const int RIGHT_TURN = -30; // ï¿½ï¿½ï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½l
+  static const int LEFT_TURN = 30;   // ï¿½Eï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½l
 
   Walker(spikeapi::Motor &leftWheel,
          spikeapi::Motor &rightWheel);
@@ -31,7 +31,7 @@ private:
   int mTurn;
 
 #ifndef MAKE_RASPIKE
-  const int8_t pwm = 65;
+  const int8_t pwm = 50;
 #else
   const int8_t pwm = 40;
 #endif

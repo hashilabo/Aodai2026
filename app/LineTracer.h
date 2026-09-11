@@ -28,8 +28,7 @@ public:
     #define _EDGE -1
 #endif
 
-    LineTracer(const LineMonitor *lineMonitor,
-               Walker *walker);
+    LineTracer(const LineMonitor *lineMonitor, Walker *walker);
 
     void run();
 

@@ -17,7 +17,7 @@
         * ```execStop()```   停止中の処理
 
 ## 実装
-* ```RandomWalker.h```と```RandomWalker.h```をコピーして、```EntryWalker.h```と```EntryWalker.cpp```を作る
+* ```RandomWalker.h```と```RandomWalker.cpp```をコピーして、```EntryWalker.h```と```EntryWalker.cpp```を作る
 ```
     $ cd workspace/Aodai2026/app
     $ cp RandomWalker.h EntryWalker.h
