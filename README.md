@@ -295,7 +295,7 @@ void LineTracer::run()
 }
 ```
 3. pid.txt 新規追加
-  ＊ 追加するフォルダ  simdist/Aodai2026/_ev3rtfs/pid.txt
+  * 追加するフォルダ  simdist/Aodai2026/_ev3rtfs/pid.txt
 ```
 Kp=1.60
 Ki=0.000
