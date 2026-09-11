@@ -9,8 +9,8 @@
 #include "etroboc_ext.h"
 
 // 定数宣言
-const int EntryWalker::MIN_TIME = 60000 * 1000;  // 切り替え時間の最小値
-const int EntryWalker::MAX_TIME = 120000 * 1000; // 切り替え時間の最大値
+const int EntryWalker::MIN_TIME = 120 * 1000 * 1000;  // 切り替え時間の最小値
+const int EntryWalker::MAX_TIME = 150 * 1000 * 1000; // 切り替え時間の最大値
 
 /**
  * コンストラクタ
@@ -54,6 +54,12 @@ void EntryWalker::run()
         break;
     case SCENARIO_TRACING:
         execScenarioTracing();
+        break;
+    case GARAGE:
+        execGarage();
+        break;
+    case STOP:
+        execStop();
         break;
     default:
         break;
@@ -133,6 +139,10 @@ void EntryWalker::execScenarioTracing()
 
         modeChangeAction();
     }
+}
+
+void EntryWalker::execGarage(){
+    //
 }
 
 void EntryWalker::execStop()

@@ -28,6 +28,7 @@ private:
         WAITING_FOR_START,
         LINE_TRACING,
         SCENARIO_TRACING,
+        GARAGE,
         STOP
     };
 
@@ -46,6 +47,7 @@ private:
     void execWaitingForStart();
     void execLineTracing();
     void execScenarioTracing();
+    void execGarage();
     void execStop();
 };
 
