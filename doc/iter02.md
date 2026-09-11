@@ -36,6 +36,10 @@
 ```
 class EntryWalker {
 ```
+* ```RandomWalker``` , ```RANDOMWALKER``` を右クリックし、すべての出現箇所を変更を選択し、```EntryWalker``` , ```ENTRYWALKER``` に変更する
+
+### EntryWalker.cpp
+* ```RandomWalker``` を右クリックし、すべての出現箇所を変更を選択し、```EntryWalker``` に変更する
 
 ## 検証
 * シミュレータを起動し、動作確認する
