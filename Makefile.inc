@@ -30,4 +30,4 @@ INCLUDES += \
 	-I$(mkfile_path)app \
 	-I$(mkfile_path)unit
 
-COPTS += -DMAKE_RIGHT
+#COPTS += -DMAKE_RIGHT

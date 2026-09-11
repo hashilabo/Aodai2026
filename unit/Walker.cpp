@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 #include "Walker.h"
+#include <cstdio>
 
 /**
  * コンストラクタ
@@ -28,7 +29,7 @@ void Walker::run() {
     // 左右モータに回転を指示する   
 	mLeftWheel.setPower(pwm - mTurn); 
 	mRightWheel.setPower(pwm + mTurn);
-	
+	printf("pwm = %6d, turn = %6d\n", pwm, mTurn);
 }
 
 /**

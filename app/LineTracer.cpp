@@ -44,7 +44,7 @@ void LineTracer::run()
     // float turn = _EDGE * calcPropValue(diffReflection);
     float turn = _EDGE * mPidController.calcValue(diffReflection);
     mWalker->setCommand(turn);
-    printf("%d ", _EDGE);
+    // printf("%d ", _EDGE);
     // 走行を行う
     mWalker->run();
 }

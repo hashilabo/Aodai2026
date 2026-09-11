@@ -7,9 +7,9 @@
 #include <cstring>
 
 // 定数宣言
-const float PidController::DEFAULT_Kp = 2.83;
-const float PidController::DEFAULT_Ki = 0.05;
-const float PidController::DEFAULT_Kd = 2.50;
+const float PidController::DEFAULT_Kp = 2.33;
+const float PidController::DEFAULT_Ki = 0.00;
+const float PidController::DEFAULT_Kd = 0.55;
 const float PidController::DEFAULT_BIAS = 0;
 // CYC_TRACER(app.cfg)の周期と合わせること
 const float PidController::PERIOD_SEC = 0.01;
