@@ -5,8 +5,11 @@
 
 ## 設計
 * システム全体の状態遷移
-![](iter05_stm.png)
+
+    ![](iter05_stm.png)
+    
     * 状態 ```GARAGE```, ```STOP```を追加
+    * 内部遷移を追加
     * 各イベントを見直し
 
 ## 実装
@@ -29,7 +32,7 @@ private:
     * ```void execStop();```
 
 ```
-        void execLineTracing();
+    void execLineTracing();
     void execScenarioTracing();
     void execGarage();  // 追加
     void execStop();    // 追加
