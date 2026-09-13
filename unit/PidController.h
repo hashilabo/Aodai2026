@@ -15,6 +15,8 @@ public:
     static const float DEFAULT_BIAS;         // バイアス
     static const float PERIOD_SEC;           // 周期ハンドラの周期[s]
     static const char *const PID_PARAM_FILE; // PIDパラメータ設定ファイル名
+    static const float INTEGRAL_LIMIT;  // 追加：積分項ワインドアップ防止用クランプ値（±）
+
 
     // コンストラクタ
     PidController();

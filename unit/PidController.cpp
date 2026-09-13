@@ -15,6 +15,7 @@ const float PidController::DEFAULT_BIAS = 0;
 const float PidController::PERIOD_SEC = 0.01;
 // 実行時のカレントディレクトリ（workspaceディレクトリ）に置く
 const char *const PidController::PID_PARAM_FILE = "pid.txt";
+const float PidController::INTEGRAL_LIMIT = 50.0f;
 
 /**
  * コンストラクタ
@@ -100,6 +101,12 @@ float PidController::calcValue(int diffReflection)
 
     // I項（誤差の積分）
     mIntegral += diffReflection * PidController::PERIOD_SEC;
+
+    if (mIntegral > PidController::INTEGRAL_LIMIT) {
+        mIntegral = PidController::INTEGRAL_LIMIT;
+    } else if (mIntegral < -PidController::INTEGRAL_LIMIT) {
+        mIntegral = -PidController::INTEGRAL_LIMIT;
+    }
     float iTerm = mKi * mIntegral;
 
     // D項（誤差の変化率）
