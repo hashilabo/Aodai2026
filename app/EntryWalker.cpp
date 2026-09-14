@@ -22,11 +22,13 @@ const int EntryWalker::MAX_TIME = 150 * 1000 * 1000; // 切り替え時間の最
 EntryWalker::EntryWalker(LineTracer *lineTracer,
                          ScenarioTracer *scenarioTracer,
                          const Starter *starter,
-                         SimpleTimer *simpleTimer)
+                         SimpleTimer *simpleTimer,
+                         OdoMeter *odoMeter)
     : mLineTracer(lineTracer),
       mScenarioTracer(scenarioTracer),
       mStarter(starter),
       mSimpleTimer(simpleTimer),
+      mOdoMeter(odoMeter), 
       mState(UNDEFINED)
 {
     spikeapi::Clock *clock = new spikeapi::Clock();

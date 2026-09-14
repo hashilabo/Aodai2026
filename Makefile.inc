@@ -10,7 +10,8 @@ APPL_CXXOBJS += \
 	LineMonitor.o \
 	Starter.o \
 	SimpleTimer.o \
-	PidController.o
+	PidController.o \
+	OdoMeter.o
 
 SRCLANG := c++
 
