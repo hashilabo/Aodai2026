@@ -39,6 +39,7 @@ static LineTracer *gLineTracer;
 static Scenario *gScenario;
 static ScenarioTracer *gScenarioTracer;
 static EntryWalker *gEntryWalker;
+static OdoMeter *gOdometer;
 
 // scene object
 static Scene gScenes[] = {
@@ -63,6 +64,7 @@ static void user_system_create()
     gLineMonitor = new LineMonitor(gColorSensor);
     gScenarioTimer = new SimpleTimer(gClock);
     gWalkerTimer = new SimpleTimer(gClock);
+    gOdometer = new OdoMeter(gLeftWheel, gRightWheel);
     gLineTracer = new LineTracer(gLineMonitor, gWalker);
     gScenario = new Scenario(0);
     gScenarioTracer = new ScenarioTracer(gWalker,
@@ -71,7 +73,8 @@ static void user_system_create()
     gEntryWalker = new EntryWalker(gLineTracer,
                                    gScenarioTracer,
                                    gStarter,
-                                   gWalkerTimer);
+                                   gWalkerTimer,
+                                   gOdometer);
 
     // シナリオを構築する
     for (uint32_t i = 0; i < (sizeof(gScenes) / sizeof(gScenes[0])); i++)

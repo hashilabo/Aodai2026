@@ -2,7 +2,6 @@
  * OdoMeter.cpp
  */
 #include "OdoMeter.h"
-#include <cmath>
 
 /**
  * コンストラクタ
@@ -20,7 +19,7 @@ OdoMeter::OdoMeter(spikeapi::Motor &leftEncoder, spikeapi::Motor &rightEncoder)
  * 総走行距離を取得する
  */
 float OdoMeter::getMileage() {
-    return M_PI * OdoMeter::TIRE_DIAMETER * (getLeftCount() + getRightCount()) / 720.0f;
+    return PI * OdoMeter::TIRE_DIAMETER * (getLeftCount() + getRightCount()) / 720.0f;
 }
 
 /**

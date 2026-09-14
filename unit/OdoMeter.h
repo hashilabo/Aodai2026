@@ -6,10 +6,12 @@
 
 #include "Motor.h"
 
+#define PI (3.14159265358979323846)
+
 class OdoMeter {
 
 public:
-    static const float TIRE_DIAMETER = 0.090f;   // タイヤ直径 0.09[m]
+    static constexpr float TIRE_DIAMETER = 0.090f;   // タイヤ直径 0.09[m]
 
     OdoMeter(spikeapi::Motor &leftEncoder, spikeapi::Motor &rightEncoder);
 
