@@ -4,6 +4,7 @@ mkfile_path := $(dir $(lastword $(MAKEFILE_LIST)))
 APPL_CXXOBJS += \
 	Walker.o \
 	LineTracer.o \
+	PidController.o \
 	Scenario.o \
 	ScenarioTracer.o \
 	EntryWalker.o \

@@ -8,8 +8,8 @@
 #include "EntryWalker.h"
 
 // 定数宣言
-const int EntryWalker::MIN_TIME = 5000 * 1000;    // 切り替え時間の最小値
-const int EntryWalker::MAX_TIME = 15000 * 1000;   // 切り替え時間の最大値
+const int EntryWalker::MIN_TIME = 120 * 1000 * 1000;    // 切り替え時間の最小値
+const int EntryWalker::MAX_TIME = 121 * 1000 * 1000;    // 切り替え時間の最大値
 
 /**
  * コンストラクタ

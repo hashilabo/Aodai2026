@@ -12,6 +12,7 @@
 
 #include "LineMonitor.h"
 #include "Walker.h"
+#include "PidController.h"
 
 class LineTracer
 {
@@ -36,6 +37,8 @@ private:
     const LineMonitor *mLineMonitor;
     Walker *mWalker;
     bool mIsInitialized;
+
+    PidController mPidController;
 
     float calcPropValue(int diffReflection);
 };
