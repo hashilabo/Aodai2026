@@ -11,6 +11,7 @@
 #define ETTR_APP_LINETRACER_H_
 
 #include "LineMonitor.h"
+#include "Course.h"
 #include "Walker.h"
 #include "PidController.h"
 

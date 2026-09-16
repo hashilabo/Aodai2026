@@ -3,6 +3,7 @@ mkfile_path := $(dir $(lastword $(MAKEFILE_LIST)))
 # <1>
 APPL_CXXOBJS += \
 	Walker.o \
+	Course.o \
 	LineTracer.o \
 	Scenario.o \
 	ScenarioTracer.o \
@@ -11,7 +12,8 @@ APPL_CXXOBJS += \
 	Starter.o \
 	SimpleTimer.o \
 	PidController.o \
-	OdoMeter.o
+	OdoMeter.o \
+	LowPassFilter.o
 
 SRCLANG := c++
 
@@ -32,3 +34,4 @@ INCLUDES += \
 	-I$(mkfile_path)unit
 
 #COPTS += -DMAKE_RIGHT
+#COPTS += -DMAKE_LEFT

@@ -35,6 +35,7 @@ static LineMonitor *gLineMonitor;
 static Starter *gStarter;
 static SimpleTimer *gScenarioTimer;
 static SimpleTimer *gWalkerTimer;
+static Course *gCourse;
 static LineTracer *gLineTracer;
 static Scenario *gScenario;
 static ScenarioTracer *gScenarioTracer;
@@ -47,6 +48,14 @@ static Scene gScenes[] = {
     {GO_STRAIGHT, 5000 * 1000, 0}, // 直進5秒
     {TURN_LEFT, 1250 * 1000, 0},   // 左旋回1.25秒
     {GO_STRAIGHT, 2500 * 1000, 0}  // 直進2.5秒
+};
+
+// 区間オブジェクト
+static Section gSections[] {
+    //  走行距離    進行方向    pwm     Kp      Ki      Kd
+    {   10.0,       0.0,      50,     1.85,   0.00,   0.50},    // 第1区間（）
+    {    1.0,     -90.0,       0,     1.85,   0.00,   0.50}     // 第2区間（）
+
 };
 
 /**
@@ -65,6 +74,7 @@ static void user_system_create()
     gScenarioTimer = new SimpleTimer(gClock);
     gWalkerTimer = new SimpleTimer(gClock);
     gOdometer = new OdoMeter(gLeftWheel, gRightWheel);
+    gCourse = new Course(0);
     gLineTracer = new LineTracer(gLineMonitor, gWalker);
     gScenario = new Scenario(0);
     gScenarioTracer = new ScenarioTracer(gWalker,
@@ -80,6 +90,12 @@ static void user_system_create()
     for (uint32_t i = 0; i < (sizeof(gScenes) / sizeof(gScenes[0])); i++)
     {
         gScenario->add(&gScenes[i]);
+    }
+
+    // 全区間を構築する
+    for (uint32_t i = 0; i < (sizeof(gSections) / sizeof(gSections[0])); i++)
+    {
+        gCourse->add(&gSections[i]);
     }
 
     // 初期化完了通知

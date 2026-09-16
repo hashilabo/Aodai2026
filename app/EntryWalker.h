@@ -26,12 +26,12 @@ public:
 private:
     enum State
     {
-        UNDEFINED,
-        WAITING_FOR_START,
-        LINE_TRACING,
-        SCENARIO_TRACING,
-        GARAGE,
-        STOP
+        UNDEFINED,          // 未定義
+        WAITING_FOR_START,  // スタート待機中
+        LINE_TRACING,       // ライントレース中
+        SCENARIO_TRACING,   // シナリオトレース中
+        GARAGE,             // ガレージ走行中
+        STOP                // 停止中
     };
 
     static const int MIN_TIME;
