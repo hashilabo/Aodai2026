@@ -1,14 +1,9 @@
 /******************************************************************************
- *  RandomWalker.h (for SPIKE )
- *  Created on: 2025/01/05
- *  Definition of the Class RandomWalker
- *  Author: Kenya Yabe
- *  Modifier: Yuki Tsuchitoi
- *  Copyright (c) 2025 Embedded Technology Software Design Robot Contest
+ * EntryWalker.h
  *****************************************************************************/
 
-#ifndef ETTR_APP_RANDOMWALKER_H_
-#define ETTR_APP_RANDOMWALKER_H_
+#ifndef ETTR_APP_ENTRYWALKER_H_
+#define ETTR_APP_ENTRYWALKER_H_
 
 #include "Starter.h"
 #include "SimpleTimer.h"
@@ -16,10 +11,10 @@
 #include "LineTracer.h"
 #include "ScenarioTracer.h"
 
-class RandomWalker {
+class EntryWalker {
 public:
-    RandomWalker(LineTracer* lineTracer,
-                 ScenarioTracer* scenarioTracer,
+    EntryWalker(LineTracer* lineTracer,
+                ScenarioTracer* scenarioTracer,
                  const Starter* starter,
                  SimpleTimer* simpleTimer);
 
@@ -27,10 +22,12 @@ public:
 
 private:
     enum State {
-        UNDEFINED,
-        WAITING_FOR_START,
-        LINE_TRACING,
-        SCENARIO_TRACING
+        UNDEFINED,              // 初期化前
+        WAITING_FOR_START,      // スタート待機中
+        LINE_TRACING,           // ライントレース中
+        SCENARIO_TRACING,       // シナリオトレース中
+        GARAGE,                 // ガレージ中
+        STOP                    // 停止中
     };
 
     static const int MIN_TIME;
@@ -48,6 +45,8 @@ private:
     void execWaitingForStart();
     void execLineTracing();
     void execScenarioTracing();
+    void execGarage();
+    void execStop();
 };
 
-#endif  // ETTR_APP_RANDOMWALKER_H_
+#endif  // ETTR_APP_ENTRYWALKER_H_

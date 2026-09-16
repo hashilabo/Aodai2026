@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #include "app.h"
-#include "RandomWalker.h"
+#include "EntryWalker.h"
 
 // デストラクタ問題の回避
 // https://github.com/ETrobocon/etroboEV3/wiki/problem_and_coping
@@ -39,7 +39,7 @@ static SimpleTimer     *gWalkerTimer;
 static LineTracer      *gLineTracer;
 static Scenario        *gScenario;
 static ScenarioTracer  *gScenarioTracer;
-static RandomWalker    *gRandomWalker;
+static EntryWalker     *gEntryWalker;
 
 // scene object
 static Scene gScenes[] = {
@@ -68,10 +68,10 @@ static void user_system_create() {
     gScenarioTracer  = new ScenarioTracer(gWalker,
                                           gScenario,
                                           gScenarioTimer);
-    gRandomWalker    = new RandomWalker(gLineTracer,
-                                        gScenarioTracer,
-                                        gStarter,
-                                        gWalkerTimer);
+    gEntryWalker    = new EntryWalker(gLineTracer,
+                                      gScenarioTracer,
+                                      gStarter,
+                                      gWalkerTimer);
 
     // シナリオを構築する
     for (uint32_t i = 0; i < (sizeof(gScenes)/sizeof(gScenes[0])); i++) {
@@ -94,7 +94,7 @@ static void user_system_destroy() {
     gLeftWheel.resetCount();
     gRightWheel.resetCount();
 
-    delete gRandomWalker;
+    delete gEntryWalker;
     delete gScenarioTracer;
     delete gScenario;
     delete gLineTracer;
@@ -133,7 +133,7 @@ void tracer_task(intptr_t exinf) {
 	if (button.isLeftPressed()) {
 	    wup_tsk(MAIN_TASK);  // レフトボタン押下
     } else {
-        gRandomWalker->run();  // 走行
+        gEntryWalker->run();  // 走行
     }
 
     ext_tsk();

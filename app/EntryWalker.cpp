@@ -1,20 +1,15 @@
 /******************************************************************************
- *  RandomWalker.cpp (for SPIKE )
- *  Created on: 2025/01/05
- *  Definition of the Class RandomWalker
- *  Author: Kenya Yabe
- *  Modifier: Yuki Tsuchitoi
- *  Copyright (c) 2025 Embedded Technology Software Design Robot Contest
+ * EntryWalker.cpp
  *****************************************************************************/
 
 #include <stdlib.h>
 #include "Clock.h"
 
-#include "RandomWalker.h"
+#include "EntryWalker.h"
 
 // 定数宣言
-const int RandomWalker::MIN_TIME = 5000 * 1000;    // 切り替え時間の最小値
-const int RandomWalker::MAX_TIME = 15000 * 1000;   // 切り替え時間の最大値
+const int EntryWalker::MIN_TIME = 5000 * 1000;    // 切り替え時間の最小値
+const int EntryWalker::MAX_TIME = 15000 * 1000;   // 切り替え時間の最大値
 
 /**
  * コンストラクタ
@@ -23,8 +18,8 @@ const int RandomWalker::MAX_TIME = 15000 * 1000;   // 切り替え時間の最�
  * @param starter         スタータ  
  * @param simpleTimer     タイマ
  */
-RandomWalker::RandomWalker(LineTracer* lineTracer,
-                           ScenarioTracer* scenarioTracer,
+EntryWalker::EntryWalker(LineTracer* lineTracer,
+                         ScenarioTracer* scenarioTracer,
                            const Starter* starter,
                            SimpleTimer* simpleTimer)
     : mLineTracer(lineTracer),
@@ -42,7 +37,7 @@ RandomWalker::RandomWalker(LineTracer* lineTracer,
 /**
  * ランダム走行する
  */
-void RandomWalker::run() {
+void EntryWalker::run() {
     switch (mState) {
     case UNDEFINED:
         execUndefined();
@@ -65,7 +60,7 @@ void RandomWalker::run() {
  * 乱数を取得する
  * @retrun 乱数
  */
-int RandomWalker::getRandomTime() {
+int EntryWalker::getRandomTime() {
     return MIN_TIME +
         static_cast<int>(static_cast<double>(rand()) *
                          (MAX_TIME - MIN_TIME + 1.0) / (1.0 + RAND_MAX));
@@ -74,7 +69,7 @@ int RandomWalker::getRandomTime() {
 /**
  * シーン変更処理
  */
-void RandomWalker::modeChangeAction() {
+void EntryWalker::modeChangeAction() {
     mSimpleTimer->setTime(getRandomTime());
     mSimpleTimer->start();
 }
@@ -82,14 +77,14 @@ void RandomWalker::modeChangeAction() {
 /**
  * 未定義状態の処理
  */
-void RandomWalker::execUndefined() {
+void EntryWalker::execUndefined() {
     mState = WAITING_FOR_START;
 }
 
 /**
  * 開始待ち状態の処理
  */
-void RandomWalker::execWaitingForStart() {
+void EntryWalker::execWaitingForStart() {
     if (mStarter->isPushed()) {
         mState = LINE_TRACING;
 
@@ -100,7 +95,7 @@ void RandomWalker::execWaitingForStart() {
 /**
  * ライントレース状態の処理
  */
-void RandomWalker::execLineTracing() {
+void EntryWalker::execLineTracing() {
     mLineTracer->run();
 
     if (mSimpleTimer->isTimedOut()) {
@@ -115,7 +110,7 @@ void RandomWalker::execLineTracing() {
 /**
  * シナリオトレース状態の処理
  */
-void RandomWalker::execScenarioTracing() {
+void EntryWalker::execScenarioTracing() {
     mScenarioTracer->run();
 
     if (mSimpleTimer->isTimedOut()) {
@@ -125,4 +120,18 @@ void RandomWalker::execScenarioTracing() {
 
         modeChangeAction();
     }
+}
+
+/**
+ * ガレージ状態の処理
+ */
+void EntryWalker::execGarage() {
+    // ガレージ状態の処理
+}
+
+/**
+ * 停止状態の処理
+ */
+void EntryWalker::execStop() {
+    // 停止状態の処理
 }
