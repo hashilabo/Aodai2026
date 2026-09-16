@@ -19,14 +19,6 @@ public:
     static const float Kp;
     static const int bias;
 
-#if defined(MAKE_RIGHT)
-    static const int _LEFT = 0;
-#define _EDGE 1
-#else
-    static const int _LEFT = 1;
-#define _EDGE -1
-#endif
-
     LineTracer(const LineMonitor *lineMonitor,
                Walker *walker);
 
