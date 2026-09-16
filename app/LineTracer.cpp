@@ -40,7 +40,7 @@ void LineTracer::run()
     int diffReflection = mLineMonitor->calDiffReflection();
 
     // 走行体の操作量を計算する
-    float turn = calcPropValue(diffReflection);
+    float turn = _EDGE * calcPropValue(diffReflection);
     mWalker->setCommand(turn);
 
     // 走行を行う
