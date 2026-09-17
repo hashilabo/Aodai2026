@@ -8,8 +8,8 @@
 
 // 定数宣言
 const float PidController::DEFAULT_Kp = 1.85;
-const float PidController::DEFAULT_Ki = 0.80;
-const float PidController::DEFAULT_Kd = 0.55;
+const float PidController::DEFAULT_Ki = 0.00;
+const float PidController::DEFAULT_Kd = 0.70;
 const float PidController::DEFAULT_BIAS = 0;
 // CYC_TRACER(app.cfg)の周期と合わせること
 const float PidController::PERIOD_SEC = 0.01;

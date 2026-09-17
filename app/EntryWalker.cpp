@@ -21,11 +21,13 @@ const int EntryWalker::MAX_TIME = 121 * 1000 * 1000;    // 切り替え時間の
 EntryWalker::EntryWalker(LineTracer* lineTracer,
                          ScenarioTracer* scenarioTracer,
                            const Starter* starter,
-                           SimpleTimer* simpleTimer)
+                           SimpleTimer* simpleTimer,
+                           ColorDetector* colorDetector)
     : mLineTracer(lineTracer),
       mScenarioTracer(scenarioTracer),
       mStarter(starter),
       mSimpleTimer(simpleTimer),
+      mColorDetector(colorDetector),
       mState(UNDEFINED) {
     spikeapi::Clock* clock = new spikeapi::Clock();
 
@@ -96,9 +98,12 @@ void EntryWalker::execWaitingForStart() {
  * ライントレース状態の処理
  */
 void EntryWalker::execLineTracing() {
+
+    mColorDetector->update();
     mLineTracer->run();
 
-    if (mSimpleTimer->isTimedOut()) {
+    // if (mSimpleTimer->isTimedOut()) {
+    if (mColorDetector->isBlue()) {
         mSimpleTimer->stop();
 
         mState = SCENARIO_TRACING;
@@ -111,6 +116,8 @@ void EntryWalker::execLineTracing() {
  * シナリオトレース状態の処理
  */
 void EntryWalker::execScenarioTracing() {
+
+    mColorDetector->update();
     mScenarioTracer->run();
 
     if (mSimpleTimer->isTimedOut()) {

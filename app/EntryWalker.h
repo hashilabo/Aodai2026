@@ -7,6 +7,7 @@
 
 #include "Starter.h"
 #include "SimpleTimer.h"
+#include "ColorDetector.h"
 
 #include "LineTracer.h"
 #include "ScenarioTracer.h"
@@ -16,7 +17,8 @@ public:
     EntryWalker(LineTracer* lineTracer,
                 ScenarioTracer* scenarioTracer,
                  const Starter* starter,
-                 SimpleTimer* simpleTimer);
+                 SimpleTimer* simpleTimer,
+                 ColorDetector* colorDetector);
 
     void run();
 
@@ -37,6 +39,7 @@ private:
     ScenarioTracer* mScenarioTracer;
     const Starter* mStarter;
     SimpleTimer* mSimpleTimer;
+    ColorDetector* mColorDetector;
     State mState;
 
     int getRandomTime();

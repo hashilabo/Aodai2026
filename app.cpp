@@ -33,6 +33,7 @@ Clock       gClock;
 // オブジェクトの定義
 static Walker          *gWalker;
 static LineMonitor     *gLineMonitor;
+static ColorDetector   *gColorDetector;
 static Starter         *gStarter;
 static SimpleTimer     *gScenarioTimer;
 static SimpleTimer     *gWalkerTimer;
@@ -68,10 +69,12 @@ static void user_system_create() {
     gScenarioTracer  = new ScenarioTracer(gWalker,
                                           gScenario,
                                           gScenarioTimer);
+    gColorDetector   = new ColorDetector(gColorSensor);
     gEntryWalker    = new EntryWalker(gLineTracer,
                                       gScenarioTracer,
                                       gStarter,
-                                      gWalkerTimer);
+                                      gWalkerTimer,
+                                      gColorDetector);
 
     // シナリオを構築する
     for (uint32_t i = 0; i < (sizeof(gScenes)/sizeof(gScenes[0])); i++) {
@@ -101,6 +104,7 @@ static void user_system_destroy() {
     delete gWalkerTimer;
     delete gScenarioTimer;
     delete gLineMonitor;
+    delete gColorDetector;
     delete gStarter;
     delete gWalker;
 }

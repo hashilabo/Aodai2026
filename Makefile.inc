@@ -9,6 +9,7 @@ APPL_CXXOBJS += \
 	ScenarioTracer.o \
 	EntryWalker.o \
 	LineMonitor.o \
+	ColorDetector.o \
 	Starter.o \
 	SimpleTimer.o
 
