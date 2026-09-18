@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 #include "ScenarioTracer.h"
+#include "LineTracer.h"
 #include "etroboc_ext.h"
 
 // 定数定義
@@ -74,12 +75,12 @@ void ScenarioTracer::setCommand(SceneCommands command) {
         break;
     case SceneCommands::TURN_LEFT:     // 左前ターン
         pwm  = DEFAULT_PWM;
-        turn = DEFAULT_TURN;
+        turn = DEFAULT_TURN * (-LineTracer::_EDGE);
         bias = DEFAULT_BIAS;
         break;
     case SceneCommands::TURN_RIGHT:    // 右前ターン
         pwm  = DEFAULT_PWM;
-        turn = - DEFAULT_TURN;
+        turn = - DEFAULT_TURN * (-LineTracer::_EDGE);
         bias = DEFAULT_BIAS;
         break;
     case SceneCommands::BACKWARD:      // 後退
@@ -89,12 +90,12 @@ void ScenarioTracer::setCommand(SceneCommands command) {
         break;
     case SceneCommands::TURN_BACK_LEFT: // 左後ターン
         pwm  = - DEFAULT_PWM;
-        turn = DEFAULT_TURN;
+        turn = DEFAULT_TURN * (-LineTracer::_EDGE);
         bias = DEFAULT_BIAS;
         break;
     case SceneCommands::TURN_BACK_RIGHT:    // 右後ターン
         pwm  = - DEFAULT_PWM;
-        turn = - DEFAULT_TURN;
+        turn = - DEFAULT_TURN * (-LineTracer::_EDGE);
         bias = DEFAULT_BIAS;
         break;
     case SceneCommands::STOP:           // 停止
