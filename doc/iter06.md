@@ -1,4 +1,4 @@
-# 反復型開発 5巡目
+# 反復型開発 6巡目
 
 ## 要求
 * シナリオトレーサーでブロックをターゲットまで運ぶ
@@ -223,7 +223,7 @@ void ScenarioTracer::setCommand(SceneCommands command) {
         break;
     case SceneCommands::TURN_BACK_LEFT: // 左後ターン
         pwm  = - DEFAULT_PWM;
-        turn = DEFAULT_TURN * (-LineTracer::_EDGE);;
+        turn = DEFAULT_TURN * (-LineTracer::_EDGE);
         bias = DEFAULT_BIAS;
         break;
     case SceneCommands::TURN_BACK_RIGHT:    // 右後ターン
@@ -270,7 +270,7 @@ static Scene gScenes[] = {
     { TURN_LEFT,         450 * 1000, 0 },   // 左前ターン0.45秒
     { GO_STRAIGHT,  8 * 1000 * 1000, 0 },   // 前進8秒
     { TURN_LEFT,         580 * 1000, 0 },   // 左前ターン0.58秒
-    { GO_STRAIGHT,  6 * 1000 * 1000, 0 },   // 前進6秒   
+    { GO_STRAIGHT,  7 * 1000 * 1000, 0 },   // 前進7秒   
     { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
     { FINISH,      10 * 1000 * 1000, 0 },   // 完全停止10秒
 };
