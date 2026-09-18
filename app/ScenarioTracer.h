@@ -16,6 +16,10 @@
 
 class ScenarioTracer {
 public:
+    static const int DEFAULT_PWM;
+    static const int DEFAULT_TURN;
+    static const int DEFAULT_BIAS;
+
     ScenarioTracer(Walker* walker,
                    Scenario* scenario,
                    SimpleTimer* timer);

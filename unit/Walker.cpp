@@ -18,7 +18,9 @@ Walker::Walker(spikeapi::Motor& leftWheel,
                                  spikeapi::Motor& rightWheel)
     : mLeftWheel(leftWheel),
       mRightWheel(rightWheel),
-      mTurn(0) {
+      mPwm(0),
+      mTurn(0),
+      mBias(0) {
 }
 
 /**
@@ -26,8 +28,8 @@ Walker::Walker(spikeapi::Motor& leftWheel,
  */
 void Walker::run() {
     // 左右モータに回転を指示する   
-	mLeftWheel.setPower(pwm - mTurn); 
-	mRightWheel.setPower(pwm + mTurn);
+	mLeftWheel.setPower(mPwm - mTurn - mBias); 
+	mRightWheel.setPower(mPwm + mTurn + mBias);
 	
 }
 
@@ -47,4 +49,16 @@ void Walker::init() {
  */
 void Walker::setCommand(float turn) {
     mTurn    = turn;
+}
+
+/**
+ * pwm, turn, bias を設定する
+ * @param pwm 前進量
+ * @param turn 旋回量
+ * @param bias バイアス
+ */
+void Walker::setCommand(float pwm, float turn, float bias) {
+    mPwm = pwm,
+    mTurn = turn;
+    mBias = bias;
 }

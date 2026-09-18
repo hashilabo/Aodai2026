@@ -44,10 +44,16 @@ static EntryWalker     *gEntryWalker;
 
 // scene object
 static Scene gScenes[] = {
-    { TURN_LEFT,   1250 * 1000, 0 },  // 左旋回1.25秒
-    { GO_STRAIGHT, 5000 * 1000, 0 },  // 直進5秒
-    { TURN_LEFT,   1250 * 1000, 0 },  // 左旋回1.25秒
-    { GO_STRAIGHT, 2500 * 1000, 0 }   // 直進2.5秒
+    { TURN_LEFT,         895 * 1000, 0 },   // 左旋回0.895秒
+    { GO_STRAIGHT, 12 * 1000 * 1000, 0 },   // 直進12秒
+    { STOP,        1  * 1000 * 1000, 0 },   // 停止1秒
+    { BACKWARD,    3  * 1000 * 1000, 0 },   // 後退3秒
+    { TURN_LEFT,         450 * 1000, 0 },   // 左前ターン0.45秒
+    { GO_STRAIGHT,  8 * 1000 * 1000, 0 },   // 前進8秒
+    { TURN_LEFT,         580 * 1000, 0 },   // 左前ターン0.58秒
+    { GO_STRAIGHT,  6 * 1000 * 1000, 0 },   // 前進6秒   
+    { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
+    { FINISH,      10 * 1000 * 1000, 0 },   // 完全停止10秒
 };
 
 /**

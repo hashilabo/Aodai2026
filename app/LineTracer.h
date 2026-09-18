@@ -18,7 +18,8 @@ class LineTracer
 {
 public:
     static const float Kp;
-    static const int bias;
+    static const int DEFAULT_PWM;
+    static const int DEFAULT_BIAS;
 
 #if defined(MAKE_RIGHT) 
     static const int _LEFT = 0;

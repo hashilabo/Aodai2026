@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include "Clock.h"
+#include "etroboc_ext.h"
 
 #include "EntryWalker.h"
 
@@ -124,7 +125,7 @@ void EntryWalker::execScenarioTracing() {
     if (mSimpleTimer->isTimedOut()) {
         mSimpleTimer->stop();
 
-        mState = LINE_TRACING;
+        mState = STOP;
 
         modeChangeAction();
     }
@@ -142,4 +143,5 @@ void EntryWalker::execGarage() {
  */
 void EntryWalker::execStop() {
     // 停止状態の処理
+    ETRoboc_notifyCompletedToSimulator();
 }

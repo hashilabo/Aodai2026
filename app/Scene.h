@@ -11,9 +11,14 @@
 #define ETTR_APP_SCENE_H_
 
 enum SceneCommands {
-    GO_STRAIGHT = 0,
-    TURN_LEFT,
-    TURN_RIGHT
+    GO_STRAIGHT = 0,    // 直進
+    TURN_LEFT,          // 左前ターン
+    TURN_RIGHT,         // 右前ターン
+    BACKWARD,           // 後退
+    TURN_BACK_LEFT,     // 左後ターン
+    TURN_BACK_RIGHT,    // 右後ターン
+    STOP,               // 停止
+    FINISH              // 完全停止
 };
 
 struct Scene {

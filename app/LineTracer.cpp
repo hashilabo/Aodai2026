@@ -11,15 +11,15 @@
 
 // 定数宣言
 const float LineTracer::Kp = 0.83;
-const int LineTracer::bias = 0;
+const int LineTracer::DEFAULT_PWM = 45;
+const int LineTracer::DEFAULT_BIAS = 0;
 
 /**
  * コンストラクタ
  * @param lineMonitor     ライン判定
  * @param walker 走行
  */
-LineTracer::LineTracer(const LineMonitor *lineMonitor,
-                       Walker *walker)
+LineTracer::LineTracer(const LineMonitor *lineMonitor, Walker *walker)
     : mLineMonitor(lineMonitor),
       mWalker(walker),
       mIsInitialized(false),
@@ -42,7 +42,8 @@ void LineTracer::run()
 
     // 走行体の操作量を計算する
     float turn = _EDGE * mPidController.calcValue(diffReflection);
-    mWalker->setCommand(turn);
+    // mWalker->setCommand(turn);
+    mWalker->setCommand(DEFAULT_PWM, (int)turn, DEFAULT_BIAS);
 
     // 走行を行う
     mWalker->run();
@@ -54,7 +55,7 @@ void LineTracer::run()
  */
 float LineTracer::calcPropValue(int diffBrightness)
 {
-    float turn = LineTracer::Kp * diffBrightness + LineTracer::bias;
+    float turn = LineTracer::Kp * diffBrightness + LineTracer::DEFAULT_BIAS;
 
     return turn;
 }
