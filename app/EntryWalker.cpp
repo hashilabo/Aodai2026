@@ -17,6 +17,7 @@ const int EntryWalker::MAX_TIME = 121 * 1000 * 1000;    // 切り替え時間の
  * @param scenarioTracer  シナリオトレーサ
  * @param starter         スタータ  
  * @param simpleTimer     タイマ
+ * @param colorDetector   色検知器
  */
 EntryWalker::EntryWalker(LineTracer* lineTracer,
                          ScenarioTracer* scenarioTracer,
