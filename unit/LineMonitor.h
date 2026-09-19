@@ -11,13 +11,15 @@
 #define ETTR_UNIT_LINEMONITOR_H_
 
 #include "ColorSensor.h"
+#include "LowPassFilter.h"
 
 // 定義
 class LineMonitor {
 public:
-    explicit LineMonitor(const spikeapi::ColorSensor& colorSensor);
+    LineMonitor(const spikeapi::ColorSensor& colorSensor,
+                float cutoffFreqHz, float sampleTimeSec);
 
-    int calDiffReflection() const;
+    int calDiffReflection();
     void setThreshold(int8_t threshold);
 
 private:
@@ -25,7 +27,10 @@ private:
 	static const int8_t INITIAL_THRESHOLD_WHITE;
 
     const spikeapi::ColorSensor& mColorSensor;
+    LowPassFilter mLowPassFilter;
+    float mFilteredReflection;
     int8_t mThreshold;
+
 };
 
 #endif  // ETTR_UNIT_LINEMONITOR_H_

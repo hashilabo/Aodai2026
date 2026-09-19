@@ -11,7 +11,7 @@
 
 // 定数宣言
 const float LineTracer::Kp = 0.83;
-const int LineTracer::DEFAULT_PWM = 45;
+const int LineTracer::DEFAULT_PWM = 50;
 const int LineTracer::DEFAULT_BIAS = 0;
 
 /**
@@ -19,7 +19,7 @@ const int LineTracer::DEFAULT_BIAS = 0;
  * @param lineMonitor     ライン判定
  * @param walker 走行
  */
-LineTracer::LineTracer(const LineMonitor *lineMonitor, Walker *walker)
+LineTracer::LineTracer(LineMonitor *lineMonitor, Walker *walker)
     : mLineMonitor(lineMonitor),
       mWalker(walker),
       mIsInitialized(false),

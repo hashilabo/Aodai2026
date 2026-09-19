@@ -29,13 +29,13 @@ public:
     static const int _EDGE = -1;
 #endif
 
-    LineTracer(const LineMonitor *lineMonitor,
+    LineTracer(LineMonitor *lineMonitor,
                Walker *walker);
 
     void run();
 
 private:
-    const LineMonitor *mLineMonitor;
+    LineMonitor *mLineMonitor;
     Walker *mWalker;
     bool mIsInitialized;
 

@@ -45,9 +45,9 @@ static EntryWalker     *gEntryWalker;
 // scene object
 static Scene gScenes[] = {
     { GO_STRAIGHT,       500 * 1000, 0 },   // 直進1秒
-    { TURN_LEFT,         970 * 1000, 0 },   // 左旋回0.895秒
+    { TURN_LEFT,         972 * 1000, 0 },   // 左旋回0.895秒
     { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
-    { GO_STRAIGHT, 12 * 1000 * 1000, 0 },   // 直進12秒
+    { GO_STRAIGHT,     11800 * 1000, 0 },   // 直進12秒
     { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
     { BACKWARD,     3 * 1000 * 1000, 0 },   // 後退3秒
     { TURN_LEFT,         450 * 1000, 0 },   // 左前ターン0.45秒
@@ -69,7 +69,7 @@ static void user_system_create() {
     gWalker          = new Walker(gLeftWheel,
                                   gRightWheel);
     gStarter         = new Starter(gForceSensor);
-    gLineMonitor     = new LineMonitor(gColorSensor);
+    gLineMonitor     = new LineMonitor(gColorSensor, 20.0f, 0.01f);
     gScenarioTimer   = new SimpleTimer(gClock);
     gWalkerTimer     = new SimpleTimer(gClock);
     gLineTracer      = new LineTracer(gLineMonitor, gWalker);

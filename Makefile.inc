@@ -11,7 +11,8 @@ APPL_CXXOBJS += \
 	LineMonitor.o \
 	ColorDetector.o \
 	Starter.o \
-	SimpleTimer.o
+	SimpleTimer.o \
+	LowPassFilter.o
 
 SRCLANG := c++
 
