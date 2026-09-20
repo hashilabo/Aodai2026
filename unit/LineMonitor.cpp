@@ -8,30 +8,36 @@
  *****************************************************************************/
 
 #include "LineMonitor.h"
-
+#include  <cstdio>
 
 // 定数宣言
-const int8_t LineMonitor::INITIAL_THRESHOLD_BLACK = 16;  // 黒色の光センサ値
-const int8_t LineMonitor::INITIAL_THRESHOLD_WHITE = 28;  // 白色の光センサ値
+const int8_t LineMonitor::INITIAL_THRESHOLD_BLACK = 15;  // 黒色の光センサ値
+const int8_t LineMonitor::INITIAL_THRESHOLD_WHITE = 25;  // 白色の光センサ値
 
 /**
  * コンストラクタ
  * @param colorSensor カラーセンサ
  */
-LineMonitor::LineMonitor(const spikeapi::ColorSensor& colorSensor)
+LineMonitor::LineMonitor(const spikeapi::ColorSensor& colorSensor, 
+                         float cutoffFreqHz, float sampleTimeSec)
     : mColorSensor(colorSensor),
-      mThreshold((INITIAL_THRESHOLD_BLACK + INITIAL_THRESHOLD_WHITE)/2) {
+      mReflectionFilter(cutoffFreqHz, sampleTimeSec),
+      mThreshold((INITIAL_THRESHOLD_BLACK + INITIAL_THRESHOLD_WHITE)/2),
+      mFilteredReflection(0.0f) {
 }
 
 /**
  * ライン境界から外れた度合いを判定する
  * @retval ライン境界とセンサ値との差分
  */
-int LineMonitor::calDiffReflection() const {
+int LineMonitor::calDiffReflection() {
     // 光センサからの取得値を見て
     // ライン境界の値との差分を算出して返す
-    int diff = mColorSensor.getReflection() - (int)mThreshold;
 
+    mFilteredReflection = mReflectionFilter.update(mColorSensor.getReflection());
+    int diff = (int)(mFilteredReflection - mThreshold);
+
+    printf("Filtered Reflection: %.2f, Threshold: %d, Diff: %d\n", mFilteredReflection, mThreshold, diff);
     return diff;
 }
 
@@ -42,3 +48,13 @@ int LineMonitor::calDiffReflection() const {
 void LineMonitor::setThreshold(int8_t threshold) {
     mThreshold = threshold;
 }
+
+/**
+ * 反射率の平滑化を行う
+ */
+void LineMonitor::update() {
+    // 光センサからの取得値を見て
+    // 反射率の平滑化を行う
+    mFilteredReflection = mReflectionFilter.update(mColorSensor.getReflection());
+}
+

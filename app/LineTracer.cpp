@@ -19,7 +19,7 @@ const int LineTracer::DEFAULT_BIAS = 0;
  * @param lineMonitor     ライン判定
  * @param walker 走行
  */
-LineTracer::LineTracer(const LineMonitor *lineMonitor, Walker *walker)
+LineTracer::LineTracer(LineMonitor *lineMonitor, Walker *walker)
     : mLineMonitor(lineMonitor),
       mWalker(walker),
       mIsInitialized(false),
@@ -38,6 +38,7 @@ void LineTracer::run()
         mIsInitialized = true;
     }
 
+    mLineMonitor->update();
     int diffReflection = mLineMonitor->calDiffReflection();
 
     // 走行体の操作量を計算する

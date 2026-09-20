@@ -55,7 +55,7 @@ bool ColorDetector::isBlue() const {
     const uint8_t blueSatMin = 60;
     const uint8_t blueValMin = 50;
 
-    printf("Hue: %d, Saturation: %d, Value: %d\n", mHue, mSaturation, mValue); // デバッグ用の出力
+    // printf("Hue: %d, Saturation: %d, Value: %d\n", mHue, mSaturation, mValue); // デバッグ用の出力
 
     return (mHue >= blueHueMin && mHue <= blueHueMax) &&
            (mSaturation >= blueSatMin) &&

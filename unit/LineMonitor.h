@@ -11,21 +11,26 @@
 #define ETTR_UNIT_LINEMONITOR_H_
 
 #include "ColorSensor.h"
+#include "LowPassFilter.h"
 
 // 定義
 class LineMonitor {
 public:
-    explicit LineMonitor(const spikeapi::ColorSensor& colorSensor);
+    LineMonitor(const spikeapi::ColorSensor& colorSensor, 
+                float cutoffFreqHz = 25.0f, float sampleTimeSec = 0.01f);
 
-    int calDiffReflection() const;
+    int calDiffReflection();
     void setThreshold(int8_t threshold);
+    void update();
 
 private:
     static const int8_t INITIAL_THRESHOLD_BLACK;
 	static const int8_t INITIAL_THRESHOLD_WHITE;
 
-    const spikeapi::ColorSensor& mColorSensor;
-    int8_t mThreshold;
+    const spikeapi::ColorSensor& mColorSensor;  // カラーセンサの参照
+    LowPassFilter mReflectionFilter;            // LPFによる反射率の平滑化
+    int8_t mThreshold;                          // ライン閾値
+    float mFilteredReflection;                  // 平滑化された反射率
 };
 
 #endif  // ETTR_UNIT_LINEMONITOR_H_
