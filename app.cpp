@@ -44,8 +44,9 @@ static EntryWalker     *gEntryWalker;
 
 // scene object
 static Scene gScenes[] = {
-    { GO_STRAIGHT,       500 * 1000, 0 },   // 直進1秒
-    { TURN_LEFT,         970 * 1000, 0 },   // 左旋回0.895秒
+    { GO_STRAIGHT,       500 * 1000, 0 },   // 直進0.5秒
+    { STOP,              100 * 1000, 0 },   // 停止0.1秒
+    { TURN_LEFT,         967 * 1000, 0 },   // 左旋回0.98秒
     { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
     { GO_STRAIGHT, 12 * 1000 * 1000, 0 },   // 直進12秒
     { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
