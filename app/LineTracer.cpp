@@ -11,7 +11,7 @@
 
 // 定数宣言
 const float LineTracer::Kp = 0.83;
-const int LineTracer::DEFAULT_PWM = 45;
+const int LineTracer::DEFAULT_PWM = 47;
 const int LineTracer::DEFAULT_BIAS = 0;
 
 /**
