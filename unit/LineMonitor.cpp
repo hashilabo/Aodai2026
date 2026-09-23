@@ -17,6 +17,8 @@ const int8_t LineMonitor::INITIAL_THRESHOLD_WHITE = 25;  // 白色の光セン�
 /**
  * コンストラクタ
  * @param colorSensor カラーセンサ
+ * @param cutoffFreqHz LPFのカットオフ周波数(Hz)
+ * @param sampleTimeSec LPFのサンプリング周期(秒)
  */
 LineMonitor::LineMonitor(const spikeapi::ColorSensor& colorSensor, 
                          float cutoffFreqHz, float sampleTimeSec)
@@ -31,10 +33,11 @@ LineMonitor::LineMonitor(const spikeapi::ColorSensor& colorSensor,
  * @retval ライン境界とセンサ値との差分
  */
 int LineMonitor::calDiffReflection() {
-    // 光センサからの取得値を見て
+    // 光センサからの取得値を見てローパスフィルタで平滑化し、
     // ライン境界の値との差分を算出して返す
 
-    mFilteredReflection = mReflectionFilter.update(mColorSensor.getReflection());
+    // mFilteredReflection = mReflectionFilter.update(mColorSensor.getReflection());
+    update();  // 平滑化を行う
     int diff = (int)(mFilteredReflection - mThreshold);
 
     printf("Filtered Reflection: %.2f, Threshold: %d, Diff: %d\n", mFilteredReflection, mThreshold, diff);

@@ -69,7 +69,7 @@ static void user_system_create() {
     gWalker          = new Walker(gLeftWheel,
                                   gRightWheel);
     gStarter         = new Starter(gForceSensor);
-    gLineMonitor     = new LineMonitor(gColorSensor);
+    gLineMonitor     = new LineMonitor(gColorSensor, 20.0f, 0.01f);
     gScenarioTimer   = new SimpleTimer(gClock);
     gWalkerTimer     = new SimpleTimer(gClock);
     gLineTracer      = new LineTracer(gLineMonitor, gWalker);
