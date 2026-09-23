@@ -7,15 +7,16 @@
 #include <cstring>
 
 // 定数宣言
-const float PidController::DEFAULT_Kp = 1.85;
-const float PidController::DEFAULT_Ki = 0.00;
-const float PidController::DEFAULT_Kd = 0.70;
+const float PidController::DEFAULT_Kp = 2.950;
+const float PidController::DEFAULT_Ki = 0.200;
+const float PidController::DEFAULT_Kd = 1.250;
 const float PidController::DEFAULT_BIAS = 0;
 // CYC_TRACER(app.cfg)の周期と合わせること
 const float PidController::PERIOD_SEC = 0.01;
 // 実行時のカレントディレクトリ（workspaceディレクトリ）に置く
 const char *const PidController::PID_PARAM_FILE = "pid.txt";
 const float PidController::INTEGRAL_LIMIT = 50.0f;
+const float PidController::DTERM_LIMIT = 80.0f;
 
 /**
  * コンストラクタ
@@ -123,6 +124,11 @@ float PidController::calcValue(int diffReflection)
     // D項（誤差の変化率）
     float derivative = (diffReflection - mPrevDiffReflection) / PidController::PERIOD_SEC;
     float dTerm = mKd * derivative;
+    if (dTerm > PidController::DTERM_LIMIT) {
+        dTerm = PidController::DTERM_LIMIT;
+    } else if (dTerm < -PidController::DTERM_LIMIT) {
+        dTerm = -PidController::DTERM_LIMIT;
+    }
 
     mPrevDiffReflection = diffReflection;
 

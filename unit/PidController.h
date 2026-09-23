@@ -15,8 +15,8 @@ public:
     static const float DEFAULT_BIAS;         // バイアス
     static const float PERIOD_SEC;           // 周期ハンドラの周期[s]
     static const char *const PID_PARAM_FILE; // PIDパラメータ設定ファイル名
-    static const float INTEGRAL_LIMIT;  // 追加：積分項ワインドアップ防止用クランプ値（±）
-
+    static const float INTEGRAL_LIMIT;       // 追加：積分項ワインドアップ防止用クランプ値（±）
+    static const float DTERM_LIMIT;          // 追加：微分項の急激な変化を抑制するためのクランプ値（±）
 
     // コンストラクタ
     PidController();
@@ -26,7 +26,7 @@ public:
 
     // PIDパラメータを設定する
     void setPidParams(float kp, float ki, float kd, float bias);
-    
+
     // 偏差からPID制御量を計算する
     float calcValue(int diffReflection);
 

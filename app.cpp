@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 #include "app.h"
+#include <cstdio>
 #include "EntryWalker.h"
 
 // デストラクタ問題の回避
@@ -20,7 +21,6 @@
 
 // using宣言
 using namespace spikeapi;
-
 
 // Device objects
 // オブジェクトを静的に確保する
@@ -43,20 +43,49 @@ static ScenarioTracer  *gScenarioTracer;
 static EntryWalker     *gEntryWalker;
 
 // scene object
-static Scene gScenes[] = {
+// ※ TURN_LEFT/TURN_RIGHT は ScenarioTracer 内で LineTracer::_EDGE を掛けて
+//    コース向きに合わせて自動反転される。R 用テーブルでも L/R の入れ替えは不要で、
+//    R 固有の時間（ガレージ停止・スマートキャリー区間など）だけを調整する。
+
+// Lコース用シーン
+static Scene gScenesL[] = {
     { GO_STRAIGHT,       500 * 1000, 0 },   // 直進0.5秒
     { STOP,              100 * 1000, 0 },   // 停止0.1秒
-    { TURN_LEFT,         967 * 1000, 0 },   // 左旋回0.98秒
-    { GO_STRAIGHT, 12 * 1000 * 1000, 0 },   // 直進12秒
+    { TURN_LEFT,         965 * 1000, 0 },   // 左旋回0.98秒
+    { GO_STRAIGHT,     11900 * 1000, 0 },   // 直進12秒
     { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
     { BACKWARD,     3 * 1000 * 1000, 0 },   // 後退3秒
     { TURN_LEFT,         440 * 1000, 0 },   // 左前ターン0.44秒
     { GO_STRAIGHT,      7990 * 1000, 0 },   // 前進8秒
-    { TURN_LEFT,         570 * 1000, 0 },   // 左前ターン0.57秒
+    { TURN_LEFT,         560 * 1000, 0 },   // 左前ターン0.57秒
     { GO_STRAIGHT,      6750 * 1000, 0 },   // 前進7秒   
     { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
     { FINISH,      10 * 1000 * 1000, 0 },   // 完全停止10秒
 };
+// Rコース用シーン
+static Scene gScenesR[] = {
+    { GO_STRAIGHT,       500 * 1000, 0 },   // 直進0.5秒
+    { STOP,              100 * 1000, 0 },   // 停止0.1秒
+    { TURN_LEFT,         931 * 1000, 0 },   // 左旋回0.95秒
+    { GO_STRAIGHT,     11900 * 1000, 0 },   // 直進12秒
+    { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
+    { BACKWARD,     3 * 1000 * 1000, 0 },   // 後退3秒
+    { TURN_LEFT,         440 * 1000, 0 },   // 左前ターン0.44秒
+    { GO_STRAIGHT,      8500 * 1000, 0 },   // 前進8秒
+    { TURN_LEFT,         510 * 1000, 0 },   // 左前ターン0.57秒
+    { GO_STRAIGHT,      6600 * 1000, 0 },   // 前進7秒   
+    { STOP,         1 * 1000 * 1000, 0 },   // 停止1秒
+    { FINISH,      10 * 1000 * 1000, 0 },   // 完全停止10秒
+};
+
+// コース選択（ビルド時: make right → MAKE_RIGHT 定義、make left → 未定義）
+#if defined(MAKE_RIGHT)
+    static Scene* const gScenes     = gScenesR;
+    static const uint32_t gSceneNum = sizeof(gScenesR) / sizeof(gScenesR[0]);
+#else
+    static Scene* const gScenes     = gScenesL;
+    static const uint32_t gSceneNum = sizeof(gScenesL) / sizeof(gScenesL[0]);
+#endif
 
 /**
  * システム生成
@@ -66,8 +95,7 @@ static void user_system_create() {
     tslp_tsk(2U * 1000U);
 
     // オブジェクトの作成
-    gWalker          = new Walker(gLeftWheel,
-                                  gRightWheel);
+    gWalker          = new Walker(gLeftWheel, gRightWheel);
     gStarter         = new Starter(gForceSensor);
     gLineMonitor     = new LineMonitor(gColorSensor, 20.0f, 0.01f);
     gScenarioTimer   = new SimpleTimer(gClock);
@@ -78,14 +106,14 @@ static void user_system_create() {
                                           gScenario,
                                           gScenarioTimer);
     gColorDetector   = new ColorDetector(gColorSensor);
-    gEntryWalker    = new EntryWalker(gLineTracer,
+    gEntryWalker     = new EntryWalker(gLineTracer,
                                       gScenarioTracer,
                                       gStarter,
                                       gWalkerTimer,
                                       gColorDetector);
 
     // シナリオを構築する
-    for (uint32_t i = 0; i < (sizeof(gScenes)/sizeof(gScenes[0])); i++) {
+    for (uint32_t i = 0; i < gSceneNum; i++) {
         gScenario->add(&gScenes[i]);
     }
     
