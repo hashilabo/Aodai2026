@@ -34,6 +34,7 @@ private:
 
     static const int MIN_TIME;
     static const int MAX_TIME;
+    static const int BLUE_DETECT_THRESHOLD;
 
     LineTracer* mLineTracer;
     ScenarioTracer* mScenarioTracer;
@@ -41,6 +42,7 @@ private:
     SimpleTimer* mSimpleTimer;
     ColorDetector* mColorDetector;
     State mState;
+    int mBlueDetectCount;
 
     int getRandomTime();
     void modeChangeAction();

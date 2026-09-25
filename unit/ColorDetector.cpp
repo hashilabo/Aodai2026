@@ -50,12 +50,12 @@ uint8_t ColorDetector::getValue() const {
  */
 bool ColorDetector::isBlue() const {
     // 青色のHSV範囲を定義
-    const uint16_t blueHueMin = 220;
-    const uint16_t blueHueMax = 260;
+    const uint16_t blueHueMin = 210;
+    const uint16_t blueHueMax = 230;
     const uint8_t blueSatMin = 60;
-    const uint8_t blueValMin = 50;
+    const uint8_t blueValMin = 100;
 
-    // printf("Hue: %d, Saturation: %d, Value: %d\n", mHue, mSaturation, mValue); // デバッグ用の出力
+    printf("Hue: %d, Saturation: %d, Value: %d\n", mHue, mSaturation, mValue); // デバッグ用の出力
 
     return (mHue >= blueHueMin && mHue <= blueHueMax) &&
            (mSaturation >= blueSatMin) &&

@@ -11,6 +11,7 @@
 // 定数宣言
 const int EntryWalker::MIN_TIME = 120 * 1000 * 1000;    // 切り替え時間の最小値
 const int EntryWalker::MAX_TIME = 121 * 1000 * 1000;    // 切り替え時間の最大値
+const int EntryWalker::BLUE_DETECT_THRESHOLD = 3;
 
 /**
  * コンストラクタ
@@ -30,7 +31,8 @@ EntryWalker::EntryWalker(LineTracer* lineTracer,
       mStarter(starter),
       mSimpleTimer(simpleTimer),
       mColorDetector(colorDetector),
-      mState(UNDEFINED) {
+      mState(UNDEFINED),
+      mBlueDetectCount(0) {
     spikeapi::Clock* clock = new spikeapi::Clock();
 
     srand(clock->now());  // 乱数をリセットする
@@ -104,8 +106,16 @@ void EntryWalker::execLineTracing() {
     mColorDetector->update();
     mLineTracer->run();
 
-    // if (mSimpleTimer->isTimedOut()) {
+    // 単発フレームのノイズによる誤検知を避けるため、
+    // BLUE_DETECT_THRESHOLD回連続でisBlue()がtrueの場合のみ状態遷移する
     if (mColorDetector->isBlue()) {
+        mBlueDetectCount++;
+    } else {
+        mBlueDetectCount = 0;
+    }
+
+    if (mBlueDetectCount >= BLUE_DETECT_THRESHOLD) {
+        mBlueDetectCount = 0;
         mSimpleTimer->stop();
 
         mState = SCENARIO_TRACING;

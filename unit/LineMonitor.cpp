@@ -11,8 +11,8 @@
 #include  <cstdio>
 
 // 定数宣言
-const int8_t LineMonitor::INITIAL_THRESHOLD_BLACK = 15;  // 黒色の光センサ値
-const int8_t LineMonitor::INITIAL_THRESHOLD_WHITE = 25;  // 白色の光センサ値
+const int8_t LineMonitor::INITIAL_THRESHOLD_BLACK = 10;  // 黒色の光センサ値
+const int8_t LineMonitor::INITIAL_THRESHOLD_WHITE = 28;  // 白色の光センサ値
 
 /**
  * コンストラクタ
@@ -40,7 +40,7 @@ int LineMonitor::calDiffReflection() {
     update();  // 平滑化を行う
     int diff = (int)(mFilteredReflection - mThreshold);
 
-    printf("Filtered Reflection: %.2f, Threshold: %d, Diff: %d\n", mFilteredReflection, mThreshold, diff);
+    // printf("Filtered Reflection: %.2f, Threshold: %d, Diff: %d\n", mFilteredReflection, mThreshold, diff);
     return diff;
 }
 
